@@ -1,6 +1,6 @@
 # Foodhisattva Café Website
 
-## Week 1 Development Goals
+## DEMO 1 week of FEB 11 Development Goals
 
 ### 1. Basic Layout & Navigation
 - [ ] Responsive navbar implementation
@@ -145,12 +145,7 @@ npm run format       # Run Prettier
 - shadcn/ui
 - NextAuth.js
 
-### Contributing
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+
 
 ### Team Members
 - [Member 1] - Frontend Developer
