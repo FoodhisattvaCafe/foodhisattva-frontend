@@ -154,10 +154,10 @@ npm run format       # Run Prettier
 
 ### Team Members
 - [Member 1] - Frontend Developer
-- [Member 2] - Frontend Developer
+- [Member 2] - Database Developer
 - [Member 3] - Backend Developer
 - [Member 4] - Backend Developer
-- [Member 5] - Full Stack Developer
+- Koushik Mannam - Full Stack Developer
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
