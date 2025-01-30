@@ -1,165 +1,163 @@
-# Project Setup Documentation
+# Foodhisattva Café Website
 
-## Table of Contents
-1. [Introduction](#introduction)
-2. [Project Structure](#project-structure)
-3. [Installation](#installation)
-4. [ESLint Configuration](#eslint-configuration)
-5. [Prettier Setup](#prettier-setup)
-6. [Git Workflow](#git-workflow)
-7. [Component Documentation](#component-documentation)
-8. [Best Practices](#best-practices)
+## Week 1 Development Goals
 
----
+### 1. Basic Layout & Navigation
+- [ ] Responsive navbar implementation
+- [ ] Footer with contact information
+- [ ] Basic page routing setup
+- [ ] Mobile-friendly design implementation
+- [ ] Layout grid system setup
 
-## Introduction
-This document outlines the setup and development workflow for the project, ensuring maintainability, consistency, and high performance.
+### 2. Authentication
+- [ ] Login/Register forms
+- [ ] Google OAuth integration
+- [ ] User session management
+- [ ] Protected routes setup
 
-## Project Structure
-```
-📦 project-root
- ┣ 📂 src
- ┃ ┣ 📂 components  # Reusable UI components
- ┃ ┣ 📂 pages       # Page components
- ┃ ┣ 📂 assets      # Images, icons, etc.
- ┃ ┣ 📂 hooks       # Custom hooks
- ┃ ┣ 📂 utils       # Helper functions
- ┃ ┣ 📜 App.js      # Main app component
- ┃ ┣ 📜 index.js    # Entry point
- ┣ 📜 .eslintrc.js  # ESLint configuration
- ┣ 📜 .prettierrc   # Prettier configuration
- ┣ 📜 package.json  # Dependencies
- ┣ 📜 README.md     # Project documentation
- ┣ 📜 .gitignore    # Git ignore file
-```
+### 3. Theme & UI
+- [ ] Dark/Light mode toggle
+- [ ] Color scheme setup
+- [ ] Basic animations library
+- [ ] Global styles implementation
+- [ ] Loading states
 
-## Installation
+### 4. Homepage Components
+- [ ] Hero section with main buttons
+  - Dine in
+  - Order
+  - Catering
+  - Menu
+- [ ] Popular foods slider
+- [ ] Quick links section
+- [ ] Restaurant info section
+
+### 5. Information Sections
+- [ ] Hours of operation
+- [ ] Contact information
+- [ ] Google Maps integration
+- [ ] Social media links
+- [ ] FAQ accordion
+
+## Additional Important Items
+
+### Error Handling
+- [ ] 404 page
+- [ ] Error boundaries
+- [ ] Form validation feedback
+
+### Performance
+- [ ] Image optimization
+- [ ] Lazy loading
+- [ ] Route pre-fetching
+
+### Project Setup
+- [ ] ESLint configuration
+- [ ] Prettier setup
+- [ ] Git workflow documentation
+- [ ] Component documentation
+
+## Getting Started
 
 ### Prerequisites
-- Node.js (>=14.x)
-- npm or yarn
-
-### Setup
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/your-repo/project.git
-   cd project
-   ```
-2. Install dependencies:
-   ```sh
-   npm install
-   ```
-3. Start the development server:
-   ```sh
-   npm start
-   ```
-
-## ESLint Configuration
-We use ESLint to enforce code consistency and best practices.
-
-- Install ESLint:
-  ```sh
-  npm install eslint --save-dev
-  ```
-- Create a `.eslintrc.js` file with the following configuration:
-  ```js
-  module.exports = {
-    env: {
-      browser: true,
-      es2021: true,
-    },
-    extends: [
-      'eslint:recommended',
-      'plugin:react/recommended',
-      'prettier'
-    ],
-    parserOptions: {
-      ecmaVersion: 12,
-      sourceType: 'module',
-    },
-    plugins: ['react'],
-    rules: {
-      'react/prop-types': 0,
-      'no-unused-vars': 'warn',
-    },
-  };
-  ```
-- Run ESLint:
-  ```sh
-  npx eslint .
-  ```
-
-## Prettier Setup
-We use Prettier for consistent code formatting.
-
-- Install Prettier:
-  ```sh
-  npm install --save-dev --save-exact prettier
-  ```
-- Create a `.prettierrc` file:
-  ```json
-  {
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5",
-    "printWidth": 80
-  }
-  ```
-- Format files:
-  ```sh
-  npx prettier --write .
-  ```
-
-## Git Workflow
-A structured Git workflow ensures code quality and consistency.
-
-### Branching Strategy
-- `main`: Production-ready code
-- `dev`: Ongoing development
-- `feature/<feature-name>`: New features
-- `bugfix/<issue>`: Bug fixes
-
-### Commit Messages Format
-Use conventional commits:
-```
-feat: Add new feature
-fix: Fix a bug
-refactor: Improve existing code
-style: Format code (no code changes)
-docs: Update documentation
+```bash
+node >= 18.0.0
+npm >= 9.0.0
 ```
 
-### Pull Requests
-1. Create a new branch: `git checkout -b feature/new-feature`
-2. Make changes and commit: `git commit -m "feat: Added new feature"`
-3. Push to GitHub: `git push origin feature/new-feature`
-4. Create a pull request to `dev`
-
-## Component Documentation
-Each component should have clear documentation:
-
-### Example Component: `Button.js`
-```jsx
-/**
- * Button Component
- * @param {string} label - Text inside the button
- * @param {Function} onClick - Function to execute on click
- * @param {string} [type="button"] - Button type
- * @returns JSX.Element
- */
-const Button = ({ label, onClick, type = 'button' }) => {
-  return <button type={type} onClick={onClick}>{label}</button>;
-};
-export default Button;
+### Installation
+1. Clone the repository
+```bash
+git clone https://github.com/FoodhisattvaCafe/foodhisattva-frontend.git
+cd foodhisattva-frontend
 ```
 
-## Best Practices
-- Keep components reusable and modular
-- Use functional components and hooks
-- Optimize images and lazy load assets
-- Follow naming conventions (`camelCase` for variables, `PascalCase` for components)
-- Always test and review code before merging
+2. Install dependencies
+```bash
+npm install
+```
 
----
+3. Create a .env file in the root directory and add necessary environment variables
+```env
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id
+NEXT_PUBLIC_API_URL=your_api_url
+```
 
-This setup ensures a smooth development workflow while maintaining high code quality and performance. 🚀
+4. Run the development server
+```bash
+npm run dev
+```
+
+### Git Workflow
+
+1. Create your feature branch
+```bash
+git checkout -b feature/your-feature-name
+```
+
+2. Commit your changes
+```bash
+git add .
+git commit -m "Add your commit message"
+```
+
+3. Push to your branch
+```bash
+git push origin feature/your-feature-name
+```
+
+4. Create a Pull Request
+
+### Code Style Guide
+
+- Use ESLint and Prettier for code formatting
+- Follow component naming convention: PascalCase for components
+- Use camelCase for variables and functions
+- Write meaningful commit messages
+
+### Project Structure
+```
+src/
+├── app/                   # Next.js app directory
+├── components/            # Reusable components
+│   ├── layout/           # Layout components
+│   ├── ui/               # UI components
+│   └── features/         # Feature-specific components
+├── lib/                  # Utility functions
+├── styles/               # Global styles
+└── types/                # TypeScript types
+```
+
+### Available Scripts
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run format       # Run Prettier
+```
+
+### Tech Stack
+- Next.js 14
+- React 18
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- NextAuth.js
+
+### Contributing
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+### Team Members
+- [Member 1] - Frontend Developer
+- [Member 2] - Frontend Developer
+- [Member 3] - Backend Developer
+- [Member 4] - Backend Developer
+- [Member 5] - Full Stack Developer
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
