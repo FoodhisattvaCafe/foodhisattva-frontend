@@ -151,7 +151,7 @@ npm run format       # Run Prettier
 - [Member 1] - Frontend Developer
 - [Member 2] - Database Developer
 - [Member 3] - Backend Developer
-- [Member 4] - Backend Developer
+- Prasanna Kumar Peram - Backend Developer
 - Koushik Mannam - Full Stack Developer
 
 ## License
