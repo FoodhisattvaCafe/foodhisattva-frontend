@@ -1,3 +1,4 @@
+// eslint.config.js
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
@@ -11,6 +12,20 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    rules: {
+      "style-prop-object": "off",
+      "@next/next/no-img-element": "off",
+      "react/no-unknown-property": ["error", { ignore: ["jsx", "global"] }]
+    },
+    ignorePatterns: [
+      "node_modules/",
+      ".next/",
+      "dist/",
+      "build/",
+      "public/"
+    ],
+  }
 ];
 
 export default eslintConfig;

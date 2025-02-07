@@ -1,0 +1,48 @@
+/* src/styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+@layer base {
+  body {
+    @apply bg-white;
+  }
+}
+
+/* Custom animations */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 25s linear infinite;
+}
+
+/* Custom utilities */
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Custom styles */
+.hero-section {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-transparent {
+  background: transparent;
+}
+
+.nav-scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
