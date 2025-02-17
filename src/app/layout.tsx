@@ -1,7 +1,8 @@
 // src/app/layout.tsx
-import '../styles/globals.css'; // Import Tailwind & your global styles
+import '@/styles/globals.css';
 import { Inter, Playfair_Display } from 'next/font/google';
-import { Providers } from '@/components/Providers';
+import { AuthProvider } from '@/contexts/AuthContext';
+import AuthModal from '@/components/ui/AuthModal';  // Change this import
 
 const inter = Inter({ subsets: ['latin'] });
 const playfair = Playfair_Display({ subsets: ['latin'] });
@@ -19,10 +20,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="antialiased">
-        {/* Wrap your app with the client-only Providers */}
-        <Providers>
+        <AuthProvider>
+          <AuthModal />  {/* Replace AuthCard with AuthModal */}
           {children}
-        </Providers>
+        </AuthProvider>
       </body>
     </html>
   );

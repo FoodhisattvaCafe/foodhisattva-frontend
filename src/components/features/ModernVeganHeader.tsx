@@ -1,49 +1,50 @@
+// src/components/features/ModernVeganHeader.tsx
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { Leaf, Clock, MapPin, Phone } from 'lucide-react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 
-// Import images
-import heroBg from '@/images/hero-bg.png';
-import food1 from '@/images/food-1.png';
-import food2 from '@/images/food-2.png';
-import food3 from '@/images/food-3.png';
-import food4 from '@/images/food-4.png';
-import food5 from '@/images/food-5.png';
-import story1 from '@/images/story-1.png';
-import story2 from '@/images/story-2.png';
-import story3 from '@/images/story-3.png';
-import story4 from '@/images/story-4.png';
+// Dynamic import with correct relative path
+const DynamicInteractiveMap = dynamic(
+  () => import('@/components/InteractiveMap'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full max-w-sm aspect-square mx-auto bg-gray-100 rounded-lg animate-pulse" />
+    ),
+  }
+);
+
+
+// Import images using absolute paths
+const heroBg = require('@/images/hero-bg.png');
+const food1 = require('@/images/food-1.png');
+const food2 = require('@/images/food-2.png');
+const food3 = require('@/images/food-3.png');
+const food4 = require('@/images/food-4.png');
+const food5 = require('@/images/food-5.png');
+const story1 = require('@/images/story-1.png');
+const story2 = require('@/images/story-2.png');
+const story3 = require('@/images/story-3.png');
+const story4 = require('@/images/story-4.png');
 
 // Image Carousel Component
-const ImageScroll = () => {
+const ImageScroll: React.FC = () => {
   const foodImages = [food1, food2, food3, food4, food5];
   
   return (
     <div className="relative overflow-hidden bg-white my-12">
       <div className="animate-scroll flex">
-        {foodImages.map((img, index) => (
+        {foodImages.concat(foodImages).map((img, index) => (
           <div
-            key={`first-${index}`}
+            key={`${index}-${index >= foodImages.length ? 'clone-' : ''}${index % foodImages.length}`}
             className="flex-none w-96 h-64 bg-gray-200 relative mx-4"
           >
             <Image
               src={img}
-              alt={`Food image ${index + 1}`}
-              fill
-              className="object-cover"
-            />
-          </div>
-        ))}
-        {foodImages.map((img, index) => (
-          <div
-            key={`second-${index}`}
-            className="flex-none w-96 h-64 bg-gray-200 relative mx-4"
-          >
-            <Image
-              src={img}
-              alt={`Food image ${index + 1}`}
+              alt={`Food image ${(index % foodImages.length) + 1}`}
               fill
               className="object-cover"
             />
@@ -54,8 +55,8 @@ const ImageScroll = () => {
   );
 };
 
-const ModernVeganHeader = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
+const ModernVeganHeader: React.FC = () => {
+  const [scrollPosition, setScrollPosition] = useState<number>(0);
   const storyImages = [story1, story2, story3, story4];
 
   useEffect(() => {
@@ -236,6 +237,12 @@ const ModernVeganHeader = () => {
               ))}
             </div>
           </div>
+          
+          {/* Interactive Map Section */}
+          <div className="mt-8 flex justify-center">
+            <DynamicInteractiveMap />
+          </div>
+          
           <div className="text-center text-gray-600 text-base mt-12">
             © {new Date().getFullYear()} Foodhisattva. All rights reserved.
           </div>
