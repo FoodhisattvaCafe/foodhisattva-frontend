@@ -1,7 +1,25 @@
 'use client';
 
 import React, { useState, useCallback, useEffect } from 'react';
-import { Eye, EyeOff, Check, AlertCircle, Lock, Mail, X } from 'lucide-react';
+import {
+  Eye,
+  EyeOff,
+  Check,
+  AlertCircle,
+  Lock,
+  Mail,
+  X,
+} from 'lucide-react';
+
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+} from 'firebase/auth';
+
+import { auth } from '@/lib/firebase';
 
 // Types for form
 interface Touched {
@@ -17,7 +35,10 @@ interface PasswordStrength {
 }
 
 const AuthModal: React.FC = () => {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(true);
+  // ^ you can leave it as `true` for testing, so you see the modal right away.
+  //   Or put back your 5s timer logic if you prefer.
+
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -34,13 +55,13 @@ const AuthModal: React.FC = () => {
     confirmPassword: false,
   });
 
-  // Show the modal automatically after 5 seconds
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, []);
+  // OPTIONAL: Show the modal after 5s. If you want to see it instantly, skip this.
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setIsVisible(true);
+  //   }, 5000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   // Validate email
   const isValidEmail = useCallback((val: string) => {
@@ -78,18 +99,69 @@ const AuthModal: React.FC = () => {
     };
   }, []);
 
-  // Form submit simulation
+  // Handle Submit: Sign up or sign in with Firebase Auth
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Basic validation
-    if (!isValidEmail(email) || !isValidPassword(password)) return;
-    if (isSignUp && password !== confirmPassword) return;
+    if (!isValidEmail(email) || !isValidPassword(password)) {
+      console.warn('Email or password invalid');
+      return;
+    }
+
+    if (isSignUp && password !== confirmPassword) {
+      console.warn('Passwords do not match');
+      return;
+    }
 
     setIsLoading(true);
-    // Simulate API request
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsLoading(false);
-    setIsVisible(false);
+    try {
+      if (isSignUp) {
+        // Create a new user
+        await createUserWithEmailAndPassword(auth, email, password);
+      } else {
+        // Sign in existing user
+        await signInWithEmailAndPassword(auth, email, password);
+      }
+      console.log('Success! User is signed in!');
+      setIsVisible(false);
+    } catch (error) {
+      console.error('Error with Firebase Auth:', error);
+      alert((error as { message?: string }).message || 'Auth error occurred');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Social Auth: Google
+  const handleGoogleSignIn = async () => {
+    try {
+      setIsLoading(true);
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+      console.log('Google sign-in successful!');
+      setIsVisible(false);
+    } catch (error) {
+      console.error('Error signing in with Google:', error);
+      alert((error as { message?: string }).message || 'Google sign-in error');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Social Auth: Facebook
+  const handleFacebookSignIn = async () => {
+    try {
+      setIsLoading(true);
+      const provider = new FacebookAuthProvider();
+      await signInWithPopup(auth, provider);
+      console.log('Facebook sign-in successful!');
+      setIsVisible(false);
+    } catch (error) {
+      console.error('Error signing in with Facebook:', error);
+      alert((error as { message?: string }).message || 'Facebook sign-in error');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Hide if the modal is not currently visible
@@ -126,24 +198,26 @@ const AuthModal: React.FC = () => {
               Discover Our Authentic Flavors
             </h2>
             <p className="text-gray-300/90 leading-relaxed">
-              Join Foodhisattva to experience traditional flavors with modern 
+              Join Foodhisattva to experience traditional flavors with modern
               dining convenience. Your culinary journey begins here.
             </p>
           </div>
 
           {/* Bullet Points at the bottom */}
           <div className="space-y-4 mt-10">
-            {['Authentic Vegan Cuisine', 'Easy Table Reservations', 'Member Exclusives'].map(
-              (item, i) => (
-                <div
-                  key={i}
-                  className="flex items-center space-x-3 text-white/90 hover:text-white transition-colors"
-                >
-                  <Check className="w-5 h-5 text-emerald-300 flex-shrink-0" />
-                  <span className="text-sm font-medium">{item}</span>
-                </div>
-              )
-            )}
+            {[
+              'Authentic Vegan Cuisine',
+              'Easy Table Reservations',
+              'Member Exclusives',
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="flex items-center space-x-3 text-white/90 hover:text-white transition-colors"
+              >
+                <Check className="w-5 h-5 text-emerald-300 flex-shrink-0" />
+                <span className="text-sm font-medium">{item}</span>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -176,7 +250,9 @@ const AuthModal: React.FC = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  onBlur={() => setTouched((prev) => ({ ...prev, email: true }))}
+                  onBlur={() =>
+                    setTouched((prev) => ({ ...prev, email: true }))
+                  }
                   className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 
                              focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100
                              transition text-base placeholder-gray-400"
@@ -246,10 +322,9 @@ const AuthModal: React.FC = () => {
                     />
                   </div>
                   <span
-                    className={`text-xs font-medium ${passwordStrength(password).color.replace(
-                      'bg',
-                      'text'
-                    )}`}
+                    className={`text-xs font-medium ${passwordStrength(
+                      password
+                    ).color.replace('bg', 'text')}`}
                   >
                     {passwordStrength(password).label}
                   </span>
@@ -330,8 +405,10 @@ const AuthModal: React.FC = () => {
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
+                onClick={handleGoogleSignIn}
+                disabled={isLoading}
                 className="flex items-center justify-center gap-2 p-3 rounded-lg border border-gray-200 
-                           hover:bg-red-50 text-red-500 transition-colors"
+                           hover:bg-red-50 text-red-500 transition-colors disabled:opacity-50"
               >
                 {/* Google icon */}
                 <svg
@@ -344,10 +421,13 @@ const AuthModal: React.FC = () => {
                 </svg>
                 <span className="font-medium">Google</span>
               </button>
+
               <button
                 type="button"
+                onClick={handleFacebookSignIn}
+                disabled={isLoading}
                 className="flex items-center justify-center gap-2 p-3 rounded-lg border border-gray-200
-                           hover:bg-blue-50 text-blue-600 transition-colors"
+                           hover:bg-blue-50 text-blue-600 transition-colors disabled:opacity-50"
               >
                 {/* Facebook icon */}
                 <svg
@@ -364,7 +444,7 @@ const AuthModal: React.FC = () => {
 
             {/* Toggle Sign In / Sign Up */}
             <p className="mt-8 text-center text-sm text-gray-500">
-              {isSignUp ? 'Already have an account?' : "New here?"}{' '}
+              {isSignUp ? 'Already have an account?' : 'New here?'}{' '}
               <button
                 type="button"
                 onClick={() => setIsSignUp(!isSignUp)}
