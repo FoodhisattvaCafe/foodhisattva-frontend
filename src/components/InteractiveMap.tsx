@@ -1,4 +1,5 @@
 // src/components/ui/InteractiveMap.tsx
+// src/components/ui/InteractiveMap.tsx
 'use client';
 
 import React from 'react';
