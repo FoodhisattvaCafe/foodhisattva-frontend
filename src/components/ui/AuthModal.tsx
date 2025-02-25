@@ -36,8 +36,16 @@ interface PasswordStrength {
 
 const AuthModal: React.FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(true);
-  // ^ you can leave it as `true` for testing, so you see the modal right away.
-  //   Or put back your 5s timer logic if you prefer.
+  // Set to `true` so the modal shows immediately. 
+  // If you want a 5s delay, uncomment below:
+  /*
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
+  */
 
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -48,20 +56,12 @@ const AuthModal: React.FC = () => {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
 
-  // Track whether fields have been touched
+  // Track whether fields have been "touched"
   const [touched, setTouched] = useState<Touched>({
     email: false,
     password: false,
     confirmPassword: false,
   });
-
-  // OPTIONAL: Show the modal after 5s. If you want to see it instantly, skip this.
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setIsVisible(true);
-  //   }, 5000);
-  //   return () => clearTimeout(timer);
-  // }, []);
 
   // Validate email
   const isValidEmail = useCallback((val: string) => {
@@ -99,15 +99,15 @@ const AuthModal: React.FC = () => {
     };
   }, []);
 
-  // Handle Submit: Sign up or sign in with Firebase Auth
+  // Submit: sign up or sign in
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Basic validation
+
+    // Basic checks
     if (!isValidEmail(email) || !isValidPassword(password)) {
       console.warn('Email or password invalid');
       return;
     }
-
     if (isSignUp && password !== confirmPassword) {
       console.warn('Passwords do not match');
       return;
@@ -116,17 +116,16 @@ const AuthModal: React.FC = () => {
     setIsLoading(true);
     try {
       if (isSignUp) {
-        // Create a new user
         await createUserWithEmailAndPassword(auth, email, password);
       } else {
-        // Sign in existing user
         await signInWithEmailAndPassword(auth, email, password);
       }
       console.log('Success! User is signed in!');
       setIsVisible(false);
     } catch (error) {
-      console.error('Error with Firebase Auth:', error);
-      alert((error as { message?: string }).message || 'Auth error occurred');
+      const err = error as { message?: string };
+      console.error('Error with Firebase Auth:', err);
+      alert(err.message || 'Authentication error occurred');
     } finally {
       setIsLoading(false);
     }
@@ -141,8 +140,17 @@ const AuthModal: React.FC = () => {
       console.log('Google sign-in successful!');
       setIsVisible(false);
     } catch (error) {
-      console.error('Error signing in with Google:', error);
-      alert((error as { message?: string }).message || 'Google sign-in error');
+      const err = error as { code?: string; message?: string };
+      console.error('Google sign-in error:', err);
+
+      if (err.code === 'auth/popup-closed-by-user') {
+        // Silent handling for popup closure
+        console.log('User closed Google popup');
+      } else if (err.code === 'auth/popup-blocked') {
+        alert('Please allow popups for Google sign-in');
+      } else {
+        alert(err.message || 'Error with Google sign-in');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -157,14 +165,22 @@ const AuthModal: React.FC = () => {
       console.log('Facebook sign-in successful!');
       setIsVisible(false);
     } catch (error) {
-      console.error('Error signing in with Facebook:', error);
-      alert((error as { message?: string }).message || 'Facebook sign-in error');
+      const err = error as { code?: string; message?: string };
+      console.error('Facebook sign-in error:', err);
+
+      if (err.code === 'auth/popup-closed-by-user') {
+        console.log('User closed Facebook popup');
+      } else if (err.code === 'auth/popup-blocked') {
+        alert('Please allow popups for Facebook sign-in');
+      } else {
+        alert(err.message || 'Error with Facebook sign-in');
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Hide if the modal is not currently visible
+  // If modal is closed, don't show anything
   if (!isVisible) return null;
 
   return (
@@ -198,26 +214,24 @@ const AuthModal: React.FC = () => {
               Discover Our Authentic Flavors
             </h2>
             <p className="text-gray-300/90 leading-relaxed">
-              Join Foodhisattva to experience traditional flavors with modern
-              dining convenience. Your culinary journey begins here.
+              Join Foodhisattva to experience traditional flavors
+              with modern dining convenience. Your culinary journey begins here.
             </p>
           </div>
 
           {/* Bullet Points at the bottom */}
           <div className="space-y-4 mt-10">
-            {[
-              'Authentic Vegan Cuisine',
-              'Easy Table Reservations',
-              'Member Exclusives',
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="flex items-center space-x-3 text-white/90 hover:text-white transition-colors"
-              >
-                <Check className="w-5 h-5 text-emerald-300 flex-shrink-0" />
-                <span className="text-sm font-medium">{item}</span>
-              </div>
-            ))}
+            {['Authentic Vegan Cuisine', 'Easy Table Reservations', 'Member Exclusives'].map(
+              (item, i) => (
+                <div
+                  key={i}
+                  className="flex items-center space-x-3 text-white/90 hover:text-white transition-colors"
+                >
+                  <Check className="w-5 h-5 text-emerald-300 flex-shrink-0" />
+                  <span className="text-sm font-medium">{item}</span>
+                </div>
+              )
+            )}
           </div>
         </div>
 
@@ -255,8 +269,7 @@ const AuthModal: React.FC = () => {
                   }
                   className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 
                              focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100
-                             transition text-base placeholder-gray-400"
-                  placeholder="Email Address"
+                             transition text-base"
                 />
               </div>
               {touched.email && !isValidEmail(email) && (
@@ -287,8 +300,7 @@ const AuthModal: React.FC = () => {
                   }
                   className="w-full pl-10 pr-10 py-3 rounded-lg border border-gray-200 
                              focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100
-                             transition text-base placeholder-gray-400"
-                  placeholder="Password"
+                             transition text-base"
                 />
                 <button
                   type="button"
@@ -356,8 +368,7 @@ const AuthModal: React.FC = () => {
                     }
                     className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 
                                focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100
-                               transition text-base placeholder-gray-400"
-                    placeholder="Re-enter your password"
+                               transition text-base"
                   />
                 </div>
               </div>
