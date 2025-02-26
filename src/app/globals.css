@@ -142,37 +142,6 @@
 
 .nav-scrolled {
   @apply bg-black/90 shadow-md backdrop-blur-sm; /* Add backdrop blur */
-<<<<<<< HEAD
-=======
-}
-
-/* Responsive Spacing */
-.image-scroll-section {
-  @apply mb-12 sm:mb-20;
-}
-
-.story-section {
-  @apply py-12 sm:py-24;
-}
-
-/* Header Icon Consistency */
-.header-icon {
-  @apply w-5 h-5 sm:w-6 sm:h-6;
-}
-
-/* Accessibility and Performance Enhancements */
-* {
-  @apply tap-highlight-transparent; 
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Mobile Overflow Prevention */
-@media (max-width: 639px) {
-  .mobile-scroll-lock {
-    @apply overflow-x-hidden;
-  }
->>>>>>> 86a98f6691feb99d2b332093114848a2ac6fa655
 }
 
 /* Responsive Spacing */

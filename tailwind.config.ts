@@ -36,8 +36,4 @@ export default {
     require('@tailwindcss/typography'),
   ],
   darkMode: 'class',
-<<<<<<< HEAD
 } satisfies Config;
-=======
-} satisfies Config;
->>>>>>> 86a98f6691feb99d2b332093114848a2ac6fa655
