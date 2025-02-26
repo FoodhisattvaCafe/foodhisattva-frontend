@@ -10,6 +10,7 @@ import StorySection from './StorySection';
 import ContactUs from './ContactUs';
 import JoinUs from './JoinUs';
 import Footer from './Footer';
+import Menu from "./Menu";
 
 // Heroicons
 import {
@@ -29,6 +30,7 @@ const logo = require('@/images/logo.png');
 const ModernVeganHeader: React.FC = () => {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const [showSearch, setShowSearch] = useState<boolean>(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -125,7 +127,12 @@ const ModernVeganHeader: React.FC = () => {
 
             {/* Navigation Buttons */}
             <div className="flex items-center space-x-6">
-              <button className="flex items-center text-white hover:text-[#94C973] transition-colors">
+              <button className="flex items-center text-white hover:text-[#94C973] transition-colors" onClick={() => {
+          const menuSection = document.getElementById("menu-section");
+          if (menuSection) {
+            menuSection.scrollIntoView({ behavior: "smooth" });
+          }
+        }}>
                 <Bars3Icon className="w-5 h-5 mr-1" />
                 <span className="hidden md:inline">Menu</span>
               </button>
@@ -147,8 +154,10 @@ const ModernVeganHeader: React.FC = () => {
 
         {/* Page Sections */}
         <HeroSection />
+        
         <ImageScroll />
         <StorySection />
+        <Menu/>
         <ContactUs />
         <JoinUs />
         <Footer />
