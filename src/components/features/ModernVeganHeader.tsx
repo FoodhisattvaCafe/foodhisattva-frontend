@@ -11,23 +11,23 @@ import ContactUs from './ContactUs';
 import JoinUs from './JoinUs';
 import Footer from './Footer';
 
-// Heroicons (Next.js-friendly icon library)
+// Heroicons
 import {
   MagnifyingGlassIcon,
   Bars3Icon,
   CalendarDaysIcon,
   UserIcon,
+  ShoppingCartIcon,
 } from '@heroicons/react/24/outline';
 
-// Import the hero background image and logo
+// Correct import for AccountDropdown with explicit extension if needed
+import AccountDropdown from '../account/AccountDropdown';
+
 const heroBg = require('@/images/hero-bg.png');
 const logo = require('@/images/logo.png');
 
 const ModernVeganHeader: React.FC = () => {
-  // Track scroll position if you plan to use any scroll-related effects
   const [scrollPosition, setScrollPosition] = useState<number>(0);
-  
-  // For search functionality
   const [showSearch, setShowSearch] = useState<boolean>(false);
 
   useEffect(() => {
@@ -59,17 +59,15 @@ const ModernVeganHeader: React.FC = () => {
             return <div className="w-full h-full bg-gray-900"></div>;
           }
         })()}
-        {/* Gradient overlay for better text visibility */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-transparent z-10" />
       </div>
 
       {/* Main Content */}
       <div className="relative z-20">
-        {/* Navigation Bar (opaque) */}
+        {/* Navigation Bar */}
         <nav className="px-6 md:px-12 py-4 flex items-center justify-between fixed w-full top-0 bg-black shadow-md z-50">
-          {/* Logo / Brand */}
+          {/* Logo Section */}
           <div className="flex items-center space-x-2">
-            {/* Logo image - without the green background overlay */}
             <div className="relative w-10 h-10 flex items-center justify-center">
               {(() => {
                 try {
@@ -80,14 +78,10 @@ const ModernVeganHeader: React.FC = () => {
                       width={36}
                       height={36}
                       className="z-10"
-                      style={{
-                        objectFit: 'contain',
-                      }}
+                      style={{ objectFit: 'contain' }}
                     />
                   );
                 } catch (error) {
-                  console.error('Failed to load logo', error);
-                  // Fallback to a text "F" if logo fails to load
                   return <span className="text-white font-bold text-lg">F</span>;
                 }
               })()}
@@ -102,15 +96,11 @@ const ModernVeganHeader: React.FC = () => {
             </div>
           </div>
 
-          {/* Right-side Actions: Search, Menu, Reserve, Account */}
+          {/* Navigation Actions */}
           <div className="flex items-center space-x-6">
-            {/* Search with expandable functionality */}
+            {/* Search Input */}
             <div className="relative flex items-center">
-              <div
-                className={`flex items-center transition-all duration-300 ${
-                  showSearch ? 'w-48 md:w-64' : 'w-10'
-                }`}
-              >
+              <div className={`flex items-center transition-all duration-300 ${showSearch ? 'w-48 md:w-64' : 'w-10'}`}>
                 <input
                   type="text"
                   placeholder="Search menu items..."
@@ -118,9 +108,7 @@ const ModernVeganHeader: React.FC = () => {
                     w-full h-10 pl-10 pr-4 rounded-full
                     transition-all duration-300
                     border-none focus:ring-1 focus:ring-[#94C973]/30
-                    bg-gray-800/90
-                    text-white
-                    placeholder-gray-400
+                    bg-gray-800/90 text-white placeholder-gray-400
                     focus:outline-none
                     ${showSearch ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}
                   `}
@@ -135,42 +123,34 @@ const ModernVeganHeader: React.FC = () => {
               </div>
             </div>
 
-            {/* Menu */}
-            <button className="flex items-center text-white hover:text-[#94C973] transition-colors">
-              <Bars3Icon className="w-5 h-5 mr-1" />
-              <span className="hidden md:inline">Menu</span>
-            </button>
+            {/* Navigation Buttons */}
+            <div className="flex items-center space-x-6">
+              <button className="flex items-center text-white hover:text-[#94C973] transition-colors">
+                <Bars3Icon className="w-5 h-5 mr-1" />
+                <span className="hidden md:inline">Menu</span>
+              </button>
 
-            {/* Reserve */}
-            <button className="flex items-center text-white hover:text-[#94C973] transition-colors">
-              <CalendarDaysIcon className="w-5 h-5 mr-1" />
-              <span className="hidden md:inline">Reserve</span>
-            </button>
+              <button className="flex items-center text-white hover:text-[#94C973] transition-colors">
+                <CalendarDaysIcon className="w-5 h-5 mr-1" />
+                <span className="hidden md:inline">Reserve</span>
+              </button>
 
-            {/* Account */}
-            <button className="flex items-center text-white hover:text-[#94C973] transition-colors">
-              <UserIcon className="w-5 h-5 mr-1" />
-              <span className="hidden md:inline">Account</span>
-            </button>
+              <AccountDropdown className="text-white hover:text-[#94C973] transition-colors" />
+
+              <button className="flex items-center text-white hover:text-[#94C973] transition-colors">
+                <ShoppingCartIcon className="w-5 h-5 mr-1" />
+                <span className="hidden md:inline">Cart</span>
+              </button>
+            </div>
           </div>
         </nav>
 
-        {/* Hero Section */}
+        {/* Page Sections */}
         <HeroSection />
-
-        {/* Image Carousel */}
         <ImageScroll />
-
-        {/* Our Story Section */}
         <StorySection />
-
-        {/* Contact Section */}
         <ContactUs />
-
-        {/* Join Us Section */}
         <JoinUs />
-
-        {/* Footer */}
         <Footer />
       </div>
     </div>
