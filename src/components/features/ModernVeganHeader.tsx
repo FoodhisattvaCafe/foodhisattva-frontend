@@ -10,7 +10,6 @@ import StorySection from './StorySection';
 import ContactUs from './ContactUs';
 import JoinUs from './JoinUs';
 import Footer from './Footer';
-<<<<<<< HEAD
 
 // Heroicons
 import {
@@ -24,28 +23,13 @@ import {
 // Correct import for AccountDropdown with explicit extension if needed
 import AccountDropdown from '../account/AccountDropdown';
 
-=======
-import Menu from "./Menu";
-import { Leaf,  Search, User } from 'lucide-react';
-
-
-// Import images using absolute paths
->>>>>>> 86a98f6691feb99d2b332093114848a2ac6fa655
 const heroBg = require('@/images/hero-bg.png');
 const logo = require('@/images/logo.png');
 
 const ModernVeganHeader: React.FC = () => {
-<<<<<<< HEAD
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const [showSearch, setShowSearch] = useState<boolean>(false);
 
-=======
-
-  const [scrollPosition, setScrollPosition] = useState<number>(0);
-  const [showSearch, setShowSearch] = useState<boolean>(false);
-  const [showMenu, setShowMenu] = useState(false);
-  
->>>>>>> 86a98f6691feb99d2b332093114848a2ac6fa655
   useEffect(() => {
     const handleScroll = () => {
       setScrollPosition(window.scrollY);
@@ -139,7 +123,6 @@ const ModernVeganHeader: React.FC = () => {
               </div>
             </div>
 
-<<<<<<< HEAD
             {/* Navigation Buttons */}
             <div className="flex items-center space-x-6">
               <button className="flex items-center text-white hover:text-[#94C973] transition-colors">
@@ -169,59 +152,6 @@ const ModernVeganHeader: React.FC = () => {
         <ContactUs />
         <JoinUs />
         <Footer />
-=======
-            {/* Menu */}
-        <button
-        className="text-base transition-colors duration-300 hover:text-[#94C973] text-black"
-        onClick={() => {
-          const menuSection = document.getElementById("menu-section");
-          if (menuSection) {
-            menuSection.scrollIntoView({ behavior: "smooth" });
-          }
-        }}
-      >
-        Menu
-      </button>
-       
-
-      
-
-            {/* Reserve */}
-            <button className="px-6 py-2 text-base text-black rounded-full hover:opacity-90 transition-opacity bg-[#94C973]">
-              Reserve
-            </button>
-            {/* Account Icon */}
-            <button
-              className={`transition-colors duration-300 hover:text-[#94C973] ${
-                scrollPosition > 100 ? 'text-black dark:text-white' : 'text-white'
-              }`}
-              aria-label="Account"
-            >
-              <User className="w-5 h-5" />
-            </button>
-          </div>
-        </nav>
-      {/* Render the Menu when showMenu is true */}
-      {/* {showMenu && <Menu onClose={() => setShowMenu(false)} />} */}
-        {/* Hero Section */}
-        <HeroSection/>
-
-        {/* Image Carousel */}
-        <ImageScroll />
-
-        {/* Our Story Section */}
-       <StorySection/>
-       <Menu/>
-
-        {/* Hours / Location / Contact Section */}
-        <ContactUs/>
-
-        {/* Join Us Section */}
-        <JoinUs/>
-
-        {/* Footer */}
-        <Footer/>
->>>>>>> 86a98f6691feb99d2b332093114848a2ac6fa655
       </div>
     </div>
   );
