@@ -17,9 +17,16 @@ const HeroSection: React.FC = () => {
     Every dish tells a story of tradition and care.
   </p>
   <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6">
-    <button className="px-8 py-4 text-lg text-white border border-white rounded-full hover:bg-white hover:text-black transition-all">
+    <button className="px-8 py-4 text-lg text-white border border-white rounded-full hover:bg-white hover:text-black transition-all" onClick={() => {
+          const menuSection = document.getElementById("menu-section");
+          if (menuSection) {
+            menuSection.scrollIntoView({ behavior: "smooth" });
+          }
+        }}>
       View Our Menu
     </button>
+
+
     <button className="px-8 py-4 text-lg text-black rounded-full hover:opacity-90 transition-opacity bg-[#94C973]">
       Make Reservation
     </button>
