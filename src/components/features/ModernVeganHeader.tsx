@@ -11,6 +11,7 @@ import StorySection from './StorySection';
 import ContactUs from './ContactUs';
 import JoinUs from './JoinUs';
 import Footer from './Footer';
+<<<<<<< HEAD
 
 // Heroicons (Next.js-friendly icon library)
 import {
@@ -21,12 +22,26 @@ import {
 } from '@heroicons/react/24/outline';
 
 // Import the hero background image and logo
+=======
+import Menu from "./Menu";
+import { Leaf,  Search, User } from 'lucide-react';
+
+
+// Import images using absolute paths
+>>>>>>> 6968a75 (Added menu layout, item pop-ups, category switching, and basic cart state management.)
 const heroBg = require('@/images/hero-bg.png');
 const logo = require('@/images/logo.png');
 
 const ModernVeganHeader: React.FC = () => {
+<<<<<<< HEAD
   // Track scroll position if you plan to use any scroll-related effects
   const [scrollPosition, setScrollPosition] = useState<number>(0);
+=======
+
+  const [scrollPosition, setScrollPosition] = useState<number>(0);
+  const [showSearch, setShowSearch] = useState<boolean>(false);
+  const [showMenu, setShowMenu] = useState(false);
+>>>>>>> 6968a75 (Added menu layout, item pop-ups, category switching, and basic cart state management.)
   
   // For search functionality
   const [showSearch, setShowSearch] = useState<boolean>(false);
@@ -137,10 +152,27 @@ const ModernVeganHeader: React.FC = () => {
             </div>
 
             {/* Menu */}
+<<<<<<< HEAD
             <button className="flex items-center text-white hover:text-[#94C973] transition-colors">
               <Bars3Icon className="w-5 h-5 mr-1" />
               <span className="hidden md:inline">Menu</span>
             </button>
+=======
+        <button
+        className="text-base transition-colors duration-300 hover:text-[#94C973] text-black"
+        onClick={() => {
+          const menuSection = document.getElementById("menu-section");
+          if (menuSection) {
+            menuSection.scrollIntoView({ behavior: "smooth" });
+          }
+        }}
+      >
+        Menu
+      </button>
+       
+
+      
+>>>>>>> 6968a75 (Added menu layout, item pop-ups, category switching, and basic cart state management.)
 
             {/* Reserve */}
             <button className="flex items-center text-white hover:text-[#94C973] transition-colors">
@@ -155,7 +187,8 @@ const ModernVeganHeader: React.FC = () => {
             </button>
           </div>
         </nav>
-
+      {/* Render the Menu when showMenu is true */}
+      {/* {showMenu && <Menu onClose={() => setShowMenu(false)} />} */}
         {/* Hero Section */}
         <HeroSection />
 
@@ -163,7 +196,12 @@ const ModernVeganHeader: React.FC = () => {
         <ImageScroll />
 
         {/* Our Story Section */}
+<<<<<<< HEAD
         <StorySection />
+=======
+       <StorySection/>
+       <Menu/>
+>>>>>>> 6968a75 (Added menu layout, item pop-ups, category switching, and basic cart state management.)
 
         {/* Contact Section */}
         <ContactUs />
