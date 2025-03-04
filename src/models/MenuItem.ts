@@ -46,13 +46,13 @@ export const formatDietaryTag = (tag: string): string => {
 // Helper function to validate a menu item
 export function validateMenuItem(item: Partial<MenuItem>): { valid: boolean; errors: string[] } {
   const errors: string[] = [];
-
+  
   // Required fields
   if (!item.name || item.name.trim() === '') errors.push('Name is required');
   if (!item.description || item.description.trim() === '') errors.push('Description is required');
   if (item.price === undefined || item.price < 0) errors.push('Valid price is required');
   if (!item.category || !MenuCategories.includes(item.category)) errors.push('Valid category is required');
-
+  
   // Validate dietary tags if present
   if (item.dietaryTags) {
     const validTagIds = DietaryTags.map(tag => tag.id);
@@ -61,7 +61,7 @@ export function validateMenuItem(item: Partial<MenuItem>): { valid: boolean; err
       errors.push(`Invalid dietary tags: ${invalidTags.join(', ')}`);
     }
   }
-
+  
   return {
     valid: errors.length === 0,
     errors

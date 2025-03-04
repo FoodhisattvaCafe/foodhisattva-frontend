@@ -1,12 +1,9 @@
 // src/app/layout.tsx
-
 import "@/styles/globals.css";
 import { Inter, Playfair_Display } from "next/font/google";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
 import AuthModal from "@/components/ui/AuthModal";
-
-// 1. Import from react-toastify
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -61,7 +58,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <main className="min-h-screen w-full">
               {children}
             </main>
-            {/* 2. Place ToastContainer somewhere in the layout (e.g. after main) */}
             <ToastContainer />
           </CartProvider>
         </AuthProvider>
