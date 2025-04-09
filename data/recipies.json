@@ -1,0 +1,90 @@
+[
+  {
+    "item": "Crispy Vegetable Spring Rolls",
+    "ingredients": {
+      "Spring Roll Wrappers": "2 g",
+      "Mixed Vegetables (g)": "100 g",
+      "Sweet Chili Sauce (oz)": "1 oz"
+    }
+  },
+  {
+    "item": "Truffle Parmesan Fries",
+    "ingredients": {
+      "Potatoes (g)": 250,
+      "Truffle Oil (tsp)": 1,
+      "Parmesan Cheese (g)": 20
+    }
+  },
+  {
+    "item": "Spicy Buffalo Wings",
+    "ingredients": {
+      "Chicken Wings (g)": 300,
+      "Buffalo Sauce (oz)": 2,
+      "Butter (tbsp)": 1
+    }
+  },
+  {
+    "item": "Grilled Salmon Quinoa Bowl",
+    "ingredients": {
+      "Salmon Fillet (g)": 150,
+      "Quinoa (g)": 100,
+      "Roasted Vegetables (g)": 120
+    }
+  },
+  {
+    "item": "Beyond Meat Vegan Burger",
+    "ingredients": {
+      "Vegan Patty (g)": 120,
+      "Vegan Cheese Slice": 1,
+      "Lettuce Leaf": 1,
+      "Tomato Slice": 2,
+      "Avocado Spread (tbsp)": 1,
+      "Burger Bun": 1
+    }
+  },
+  {
+    "item": "Chicken Tikka Masala",
+    "ingredients": {
+      "Chicken (g)": 200,
+      "Tikka Masala Sauce (oz)": 5,
+      "Basmati Rice (g)": 150,
+      "Cream (tbsp)": 1
+    }
+  },
+  {
+    "item": "Vegan Chocolate Mousse",
+    "ingredients": {
+      "Dark Chocolate (g)": 100,
+      "Coconut Cream (ml)": 80,
+      "Sugar (tbsp)": 1
+    }
+  },
+  {
+    "item": "Classic New York Cheesecake",
+    "ingredients": {
+      "Cream Cheese (g)": 200,
+      "Graham Cracker Crust (g)": 100,
+      "Berry Compote (oz)": 1.5,
+      "Sugar (tbsp)": 2
+    }
+  },
+  {
+    "item": "Green Detox Smoothie",
+    "ingredients": {
+      "Spinach (cups)": 1,
+      "Kale (cups)": 1,
+      "Apple": 0.5,
+      "Banana": 1,
+      "Ginger (tsp)": 0.5,
+      "Lemon Juice (tbsp)": 1
+    }
+  },
+  {
+    "item": "Cold Brew Coffee",
+    "ingredients": {
+      "Cold Brew (oz)": 8,
+      "Dairy-Free Milk (oz)": 2,
+      "Sugar (tsp)": 1
+    }
+  }
+]
