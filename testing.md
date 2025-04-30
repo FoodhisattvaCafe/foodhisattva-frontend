@@ -44,7 +44,7 @@ npm install
 npm test          # runs Jest + React Testing Library
 npm run coverage  # generates HTML report in client/coverage/lcov-report/
 
-
+###Backend
 cd server
 npm install
 npm test          # runs Jest + Supertest
