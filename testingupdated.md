@@ -38,19 +38,18 @@ foodhisattva-frontend/
 ## 2. How to Run & View Coverage
 
 ### Frontend
-
+```bash
 cd client
 npm install
-npm test
-npm run coverage
+npm test          # runs Jest + React Testing Library
+npm run coverage  # generates HTML report in client/coverage/lcov-report/
 
-
-###Backend
 
 cd server
 npm install
 npm test          # runs Jest + Supertest
 npm run coverage  # generates HTML report in server/coverage/lcov-report/
+
 
 
 
