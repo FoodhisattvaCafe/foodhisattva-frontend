@@ -8,7 +8,7 @@ This file describes **where** our unit tests live, **how** to run them, our **co
 
 All tests are organized into two folders:
 
-
+```text
 foodhisattva-frontend/
 ├── client/                   # Frontend (React)
 │   └── tests/
@@ -31,6 +31,7 @@ foodhisattva-frontend/
         ├── payment.test.ts
         ├── inventory.test.ts
         └── notification.test.ts
+
 
 
         
