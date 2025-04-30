@@ -32,7 +32,8 @@ foodhisattva-frontend/
         ├── inventory.test.ts
         └── notification.test.ts
         
-###2.how to run and coverage 
+## 2. How to Run & View Coverage
+
 
 
 ##frontend
