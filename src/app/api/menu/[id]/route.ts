@@ -1,3 +1,13 @@
+/**
+ * app/api/menu/[id]/route.ts
+ *
+ * REST API handlers for a single MenuItem resource:
+ *   - GET    /api/menu/:id    → fetch one menu item by ID
+ *   - PUT    /api/menu/:id    → validate & update a menu item
+ *   - DELETE /api/menu/:id    → remove a menu item by ID
+ *
+ * Uses MongoDB for persistence and NextResponse for JSON + status codes.
+ */
 import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 import { connectToDatabase } from '../../../../lib/mongodb';
