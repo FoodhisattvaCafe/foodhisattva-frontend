@@ -31,24 +31,27 @@ foodhisattva-frontend/
         ├── payment.test.ts
         ├── inventory.test.ts
         └── notification.test.ts
+
+
         
 ## 2. How to Run & View Coverage
 
-
-
-##frontend
+### Frontend
 
 cd client
 npm install
-npm test          # runs Jest + React Testing Library
-npm run coverage  # generates HTML report in client/coverage/lcov-report/
+npm test
+npm run coverage
 
-##backend
+
+###Backend
 
 cd server
 npm install
 npm test          # runs Jest + Supertest
 npm run coverage  # generates HTML report in server/coverage/lcov-report/
+
+
 
 ## 3. Coverage Summary
 
@@ -66,7 +69,10 @@ npm run coverage  # generates HTML report in server/coverage/lcov-report/
 
 *(Open `*/coverage/lcov-report/index.html` in each folder to inspect full details.)*
 
----
+
+
+
+
 
 ## 4. Feature → Test File Map
 
@@ -83,7 +89,10 @@ npm run coverage  # generates HTML report in server/coverage/lcov-report/
 | Inventory Management      | —                                     | `server/tests/inventory.test.ts` |
 | Notifications & Alerts    | `client/tests/notification.test.tsx`  | `server/tests/notification.test.ts`|
 
----
+
+
+
+
 
 ## 5. Unit Test Cases by Feature
 
