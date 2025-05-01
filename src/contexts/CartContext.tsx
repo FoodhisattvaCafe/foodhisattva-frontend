@@ -1,7 +1,12 @@
-"use client";
-import React, { createContext, useContext, useState, ReactNode } from "react";
+'use client';
 
-/** Cart Item Interface */
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+
+/**
+ * @interface CartItem
+ * @description
+ * Represents a single item in the shopping cart.
+ */
 export interface CartItem {
   _id: string;
   name: string;
@@ -15,7 +20,11 @@ export interface CartItem {
   specialInstructions?: string;
 }
 
-/** Cart context with add/remove/update functions */
+/**
+ * @interface CartContextProps
+ * @description
+ * Structure for the cart context, including cart state and utility methods.
+ */
 interface CartContextProps {
   cartItems: CartItem[];
   addToCart: (item: CartItem, quantity?: number) => void;
@@ -26,7 +35,11 @@ interface CartContextProps {
   getCartItemCount: () => number;
 }
 
-/** Create context with default values */
+/**
+ * @constant CartContext
+ * @description
+ * React context that holds the cart state and utility functions.
+ */
 const CartContext = createContext<CartContextProps>({
   cartItems: [],
   addToCart: () => {},
@@ -37,44 +50,70 @@ const CartContext = createContext<CartContextProps>({
   getCartItemCount: () => 0,
 });
 
-/** Hook to use cart context */
+/**
+ * @function useCart
+ * @description
+ * React hook to access the cart context in components.
+ * @returns {CartContextProps} The current cart context value.
+ */
 export function useCart() {
   return useContext(CartContext);
 }
 
-/** CartProvider Component */
+/**
+ * @component CartProvider
+ * @description
+ * Provides the cart context to all child components.
+ * Manages cart item state and operations like add, update, remove, and clear.
+ *
+ * @param {ReactNode} children - React children components.
+ * @returns {JSX.Element} Cart context provider with children.
+ */
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  /** Add item to cart or update quantity */
+  /**
+   * Adds a new item to the cart or updates its quantity if it already exists.
+   *
+   * @param {CartItem} item - Item to be added.
+   * @param {number} [quantity=1] - Quantity to add.
+   */
   const addToCart = (item: CartItem, quantity = 1) => {
-    if (quantity <= 0) return; // Prevent adding 0 quantity items
-    
+    if (quantity <= 0) return;
+
     setCartItems((prev) => {
       const existingItemIndex = prev.findIndex((cartItem) => cartItem._id === item._id);
-      
+
       if (existingItemIndex !== -1) {
-        // Update existing item quantity
         return prev.map((cartItem, index) =>
           index === existingItemIndex
             ? { ...cartItem, quantity: cartItem.quantity + quantity }
             : cartItem
         );
       }
-      // Add new item
+
       return [...prev, { ...item, quantity }];
     });
   };
 
-  /** Remove item from cart */
+  /**
+   * Removes an item from the cart using its ID.
+   *
+   * @param {string} id - ID of the item to remove.
+   */
   const removeFromCart = (id: string) => {
     setCartItems((prev) => prev.filter((item) => item._id !== id));
   };
 
-  /** Update quantity of a specific cart item */
+  /**
+   * Updates the quantity of a specific cart item.
+   * Removes the item if quantity is zero or negative.
+   *
+   * @param {string} id - ID of the item to update.
+   * @param {number} quantity - New quantity for the item.
+   */
   const updateCartItemQuantity = (id: string, quantity: number) => {
     if (quantity <= 0) {
-      // If quantity is 0 or negative, remove the item
       removeFromCart(id);
       return;
     }
@@ -86,17 +125,27 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   };
 
-  /** Clear all items from cart */
+  /**
+   * Clears all items from the cart.
+   */
   const clearCart = () => {
     setCartItems([]);
   };
 
-  /** Calculate total price of all items in cart */
+  /**
+   * Calculates and returns the total price of all items in the cart.
+   *
+   * @returns {number} Total price.
+   */
   const getCartTotal = () => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
-  /** Get total number of items in cart */
+  /**
+   * Returns the total number of items in the cart.
+   *
+   * @returns {number} Total item count.
+   */
   const getCartItemCount = () => {
     return cartItems.reduce((count, item) => count + item.quantity, 0);
   };
@@ -117,3 +166,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     </CartContext.Provider>
   );
 }
+
+
+
+ 
