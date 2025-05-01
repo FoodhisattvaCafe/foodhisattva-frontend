@@ -74,6 +74,43 @@ npm run dev
 
 The app will be available at `http://localhost:3000`.
 
+
+##  Inventory Prediction Service (Prophet)
+
+We use a lightweight Python-based microservice to predict future inventory needs using Meta's `Prophet` forecasting library. This helps reduce waste and improve stock planning.
+
+###  How to Run the Inventory Prediction Server
+
+1. **Navigate to the model directory**
+
+```bash
+cd foodhisattva-frontend/src/app/predict/ml-model
+```
+
+2. **Start the FastAPI server with Uvicorn**
+
+```bash
+uvicorn predict:app --reload --port 5000
+```
+
+Once started, the API will be accessible at:
+
+```
+http://localhost:3000/predict
+```
+
+You can now make HTTP requests from your frontend or backend to fetch inventory forecasts.
+
+###  API Endpoints for Inventory Management Dashboard
+
+| Method | Endpoint       | Description                                      |
+|--------|----------------|--------------------------------------------------|
+| POST   | `/predict`     | Accepts historical data and returns forecast     |
+| GET    | `/predicts`    | Gets historical data and returns forecast        |
+| GET    | `/recipies`    | Allows us to peform CRUD Operations on recipies  |
+| GET    | `/recipies`    | Allows us to peform  CRUD Operations on sales    |
+
+
 ---
 
 ## Usage / Examples
