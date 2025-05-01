@@ -1,3 +1,23 @@
+/**
+ * PromoCodeSection Component
+ * 
+ * This component allows the user to enter a promotional code and apply it to 
+ * the checkout process.
+ * 
+ * @component
+ * @example
+ * const [promoCode, setPromoCode] = useState("");
+ * const handleApplyPromo = () => { console.log("Promo Applied"); };
+ * <PromoCodeSection promoCode={promoCode} setPromoCode={setPromoCode} handleApplyPromo={handleApplyPromo} />
+ * 
+ * @param {object} props - The props for the PromoCodeSection component.
+ * @param {string} props.promoCode - The current value of the promo code.
+ * @param {function} props.setPromoCode - Function to update the promo code value.
+ * @param {function} props.handleApplyPromo - Function to apply the promo code.
+ * 
+ * @returns {JSX.Element} The rendered component.
+ */
+
 "use client";
 
 import React, { memo } from "react";
@@ -7,12 +27,23 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-interface PromoCodeSectionProps {
-  promoCode: string;
-  setPromoCode: (code: string) => void;
-  handleApplyPromo: () => void;
-}
+/**
+ * Interface for the props of the PromoCodeSection component.
+ * 
+ * @typedef {Object} PromoCodeSectionProps
+ * @property {string} promoCode - The current value of the promo code.
+ * @property {function} setPromoCode - Function to set the promo code.
+ * @property {function} handleApplyPromo - Function to apply the promo code.
+ */
 
+/**
+ * PromoCodeSection Component
+ * 
+ * Displays an input field for entering a promo code and applies it when the "Apply" button is clicked.
+ * 
+ * @param {PromoCodeSectionProps} props - The props for the component.
+ * @returns {JSX.Element} The rendered component.
+ */
 const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
   promoCode,
   setPromoCode,
