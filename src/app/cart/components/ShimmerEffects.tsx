@@ -1,13 +1,33 @@
+/**
+ * ShimmerEffects.tsx
+ * 
+ * A set of reusable React components to display loading shimmer effects
+ * for various parts of the UI, such as cart items, recommendations,
+ * order summary, and full page loaders.
+ * 
+ * @module ShimmerEffects
+ */
+
 "use client";
 
 import React from "react";
 import { cn } from "@/lib/utils";
 
+/**
+ * Props for the ShimmerEffect component.
+ * @typedef {Object} ShimmerEffectProps
+ * @property {string} [className] - Optional Tailwind classes for styling.
+ */
 interface ShimmerEffectProps {
   className?: string;
 }
 
-// Basic shimmer loading effect component
+/**
+ * Renders a base shimmer animation block.
+ *
+ * @param {ShimmerEffectProps} props - The props for styling.
+ * @returns {JSX.Element}
+ */
 export const ShimmerEffect: React.FC<ShimmerEffectProps> = ({ className }) => (
   <div
     className={cn(
@@ -17,7 +37,10 @@ export const ShimmerEffect: React.FC<ShimmerEffectProps> = ({ className }) => (
   />
 );
 
-// Cart item shimmer placeholder
+/**
+ * Shimmer placeholder for a cart item while loading.
+ * @returns {JSX.Element}
+ */
 export const CartItemShimmer: React.FC = () => (
   <div className="flex gap-4 items-start p-4">
     <ShimmerEffect className="h-24 w-24 rounded-lg" />
@@ -35,7 +58,10 @@ export const CartItemShimmer: React.FC = () => (
   </div>
 );
 
-// Order summary shimmer placeholder
+/**
+ * Shimmer placeholder for order summary breakdown while loading.
+ * @returns {JSX.Element}
+ */
 export const OrderSummaryShimmer: React.FC = () => (
   <div className="space-y-4">
     <ShimmerEffect className="h-8 w-full" />
@@ -63,7 +89,10 @@ export const OrderSummaryShimmer: React.FC = () => (
   </div>
 );
 
-// Recommendation card shimmer
+/**
+ * Shimmer card for product recommendations.
+ * @returns {JSX.Element}
+ */
 export const RecommendationShimmer: React.FC = () => (
   <div className="rounded-lg overflow-hidden border border-gray-200">
     <ShimmerEffect className="h-40 w-full" />
@@ -77,7 +106,10 @@ export const RecommendationShimmer: React.FC = () => (
   </div>
 );
 
-// Page loading shimmer
+/**
+ * Full-page shimmer layout used while the entire screen is loading.
+ * @returns {JSX.Element}
+ */
 export const PageLoadingShimmer: React.FC = () => (
   <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8">
     <div className="space-y-6">
@@ -92,6 +124,9 @@ export const PageLoadingShimmer: React.FC = () => (
   </div>
 );
 
+/**
+ * Default export as grouped object (optional).
+ */
 export default {
   ShimmerEffect,
   CartItemShimmer,
