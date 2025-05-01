@@ -1,119 +1,158 @@
-# Foodhisattva Café Website
 
-## DEMO 2 (Week of FEB 18) Development Goals
+# FoodSattva (Foodhisattva V2)
 
-### 1. Menu System Implementation
-- [ ] Menu items database integration
-- [ ] Category filtering and search
-- [ ] Item detail modals
-- [ ] Customization options
-- [ ] Pricing calculations
-- [ ] Menu management interface
+## Project Name and Brief Description
+**FoodSattva** (previously known as Foodhisattva V2) is a smart, web-based restaurant management platform designed to improve customer experience and streamline restaurant operations. It helps customers to browse menus, customize and place orders, reserve tables, and track orders. For restaurant staff and managers, it provides dashboards to manage orders, inventory, and reservations.
 
-### 2. Order System Development
-- [ ] Shopping cart functionality
-- [ ] Order customization options
-- [ ] Quantity adjustments
-- [ ] Price calculations
-- [ ] Order summary view
-- [ ] Cart persistence
+**Who is it for?**
+- Customers of Foodhisattva Café
+- Restaurant staff and administrators
 
-### 3. User Profile & Account
-- [ ] Profile dashboard implementation
-- [ ] Order history display
-- [ ] Saved preferences
-- [ ] Address management
-- [ ] Account settings
-- [ ] Password reset functionality
+**GitHub Repository:** [Foodhisattva Frontend Repository](https://github.com/FoodhisattvaCafe/foodhisattva-frontend)
 
-### 4. Reservation System
-- [ ] Calendar integration
-- [ ] Time slot selection
-- [ ] Party size handling
-- [ ] Special requests form
-- [ ] Confirmation system
-- [ ] Reservation management
+---
 
-### 5. Admin Features
-- [ ] Admin dashboard layout
-- [ ] Menu item management (CRUD)
-- [ ] Basic inventory tracking
-- [ ] Order management view
-- [ ] Reservation overview
+## Architecture
 
-## Project Structure
+**System Overview:**
+- **Frontend:** React.js + Next.js (with Redux for state management)
+- **Backend:** Node.js + Express.js (with TypeScript)
+- **Database:** MongoDB/Firebase
+- **Deployment:** AWS EC2 / Google Cloud Platform
+- **External Services:** Stripe/PayPal (Payments), Google Maps API (Location), WebSockets (Real-time updates)
 
-FOODHISATTVA-FRONTEND/ ├── .next/ ├── node_modules/ ├── public/ ├── src/ │ ├── app/ │ │ ├── dashboard/ │ │ │ └── page.tsx │ │ ├── login/ │ │ │ └── page.tsx │ │ ├── favicon.ico │ │ ├── globals.css │ │ ├── layout.tsx │ │ └── page.tsx │ ├── components/ │ │ ├── features/ │ │ │ └── ModernVeganHeader.tsx │ │ └── ui/ │ │ ├── AuthCard.tsx │ │ ├── AuthModal.tsx │ │ ├── InteractiveMap.tsx │ │ ├── ProtectedRoute.tsx │ │ ├── Providers.tsx │ │ └── SignOutButton.tsx │ ├── contexts/ │ │ └── AuthContext.tsx │ ├── images/ │ │ ├── food-1.png │ │ ├── food-2.png │ │ ├── food-3.png │ │ ├── food-4.png │ │ ├── food-5.png │ │ ├── hero-bg.png │ │ ├── story-1.png │ │ ├── story-2.png │ │ ├── story-3.png │ │ └── story-4.png │ ├── lib/ │ └── styles/ │ └── globals.css ├── .env.local ├── .eslintrc.json ├── .gitignore ├── eslint.config.mjs ├── LICENSE ├── next-env.d.ts ├── next.config.mjs ├── package-lock.json ├── package.json ├── postcss.config.cjs ├── postcss.config.mjs ├── README.md ├── tailwind.config.js └── tsconfig.json
+```
+[ User ] <==> [ Frontend (React + Redux + Next.js) ] <==> [ Backend (Node.js + Express + TypeScript) ] <==> [ MongoDB / Firebase ]
+                                                    \
+                                                     --> [ 3rd Party APIs: Stripe, PayPal, Google Maps, WebSockets ]
+```
 
-shell
-Copy
+---
 
-## Getting Started
+## Getting Started / Installation
 
-### Prerequisites
+### Prerequisites:
+- Node.js (v18+)
+- npm or yarn
+- MongoDB Atlas account or Firebase setup
+- AWS/GCP account (for deployment)
 
+### Installation Steps:
+
+1. **Clone the Repository**
 ```bash
-node >= 18.0.0
-npm >= 9.0.0
-Installation
-Clone the repository
-
-bash
-Copy
-git clone https://github.com/FoodhisattvaCafe/foodhisattva-frontend.git
+git clone https://github.com/FoodhisattvaCafe/foodhisattva-frontend
 cd foodhisattva-frontend
-Install dependencies
+```
 
-bash
-Copy
+2. **Install Frontend Dependencies**
+```bash
+cd client
 npm install
-Create a .env file in the root directory and add necessary environment variables:
+```
 
-env
-Copy
-NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id
-NEXT_PUBLIC_API_URL=your_api_url
-Run the development server
+3. **Install Backend Dependencies**
+```bash
+cd ../server
+npm install
+```
 
-bash
-Copy
+4. **Set up Environment Variables**
+Create `.env` files in both `client/` and `server/` directories for API keys, database URIs, etc.
+
+5. **Run Frontend**
+```bash
+cd client
 npm run dev
-Git Workflow
-Create your feature branch
+```
 
-bash
-Copy
-git checkout -b feature/your-feature-name
-Commit your changes
+6. **Run Backend**
+```bash
+cd ../server
+npm run dev
+```
 
-bash
-Copy
-git add .
-git commit -m "Add your commit message"
-Push to your branch
+The app will be available at `http://localhost:3000`.
 
-bash
-Copy
-git push origin feature/your-feature-name
-Create a Pull Request
+---
 
-Code Style Guide
-Use ESLint and Prettier for code formatting.
-Follow component naming convention: PascalCase for components.
-Use camelCase for variables and functions.
-Write meaningful commit messages.
-Tech Stack
-Next.js 14
-React 18
-TypeScript
-Tailwind CSS
-shadcn/ui
-NextAuth.js
-Team Members
-[Member 1] - Frontend Developer
-[Member 2] - Database Developer
-[Member 3] - Backend Developer
-Prasanna Kumar Peram - Backend Developer
-Koushik Mannam - Full Stack Developer
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+## Usage / Examples
+
+- Visit the homepage to browse menus and view today's specials.
+- Customize your order (choose toppings, spice levels).
+- Add items to the cart and place your order with secure payment options.
+- Track your order in real-time through the "My Orders" page.
+- Reserve a table for future dining through the "Reservations" section.
+- Admins can log into the dashboard to manage menus, inventory, and reservations.
+
+---
+
+## Folder Structure Overview
+```
+/
+|-- client/                # Frontend (React/Next.js)
+|    |-- components/       # Reusable UI components
+|    |-- pages/            # Next.js pages
+|    |-- public/           # Static assets
+|    |-- redux/            # State management
+|    |-- tests/            # Frontend unit tests
+|
+|-- server/                # Backend (Node.js/Express)
+|    |-- controllers/      # API logic
+|    |-- models/           # MongoDB schemas
+|    |-- routes/           # API endpoints
+|    |-- utils/            # Helper functions
+|    |-- tests/            # Backend unit and integration tests
+|
+|-- docs/                  # Architecture diagrams, design documents
+|-- README.md              # Project documentation
+|-- testing.md             # Test strategy and cases
+```
+
+---
+
+## Tech Stack / Dependencies
+- **Frontend:** React.js, Next.js, Redux, Tailwind CSS, Framer Motion
+- **Backend:** Node.js, Express.js, TypeScript
+- **Database:** MongoDB Atlas, Firebase (optional)
+- **Payments:** Stripe, PayPal
+- **Authentication:** Firebase Authentication
+- **Real-Time Updates:** WebSockets
+- **Location Services:** Google Maps API
+- **Testing:** Jest, React Testing Library, Postman, JMeter, Newman
+
+---
+
+## Contribution
+
+| Name                  | Main Role                             |
+|:----------------------|:--------------------------------------|
+| Koushik Mannam         | Backend Development, API Integration  |
+| Shikhara Pagadala      | Backend Development, API Integration  |
+| Prasanna Kumar Peram   | Backend Development, Performance Testing |
+| Vishnupriya Bathini    | Database Architecture & Optimization |
+| Narasimha Lakavath     | Frontend Design & Development         |
+
+---
+
+## Development Retrospective
+
+**Mistakes That Could Be Avoided:**
+- Initially underestimated the effort needed for real-time order tracking and notifications.
+- Delayed setting up proper CI/CD pipelines and automated testing.
+
+**Cost-Effective Improvements:**
+- Started implementing WebSocket-based updates earlier to reduce integration issues.
+- Better separation between frontend and backend deployments from the beginning.
+- Planned more robust error handling upfront for payment failures and inventory shortages.
+
+---
+
+## License
+
+**License
+This project is licensed under the MIT License - see the LICENSE file for details.**
+
+
+
+---
