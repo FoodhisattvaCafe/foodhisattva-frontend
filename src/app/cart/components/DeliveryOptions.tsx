@@ -1,3 +1,15 @@
+/**
+ * app/components/DeliveryOptions.tsx
+ *
+ * Radio-card selector that lets the user switch between
+ * *Delivery* and *Pickup* on the checkout page.
+ *
+ * • When a selection changes it calls `setDeliveryOption`  
+ *   (lifting state to the parent) and shows a toast.  
+ * • Uses shadcn/ui `Card`, `RadioGroup`, `Label`, Lucide icons,
+ *   Framer-Motion for subtle animations, and Sonner for toasts.
+ */
+
 "use client";
 
 import React from "react";
@@ -8,27 +20,39 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
 
-// Animation variants
+/** Motion variants for the outer Card drop-in animation. */
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { type: "spring", damping: 25, stiffness: 500 },
-  },
-  exit: { opacity: 0, y: -20, transition: { duration: 0.2 } },
+  visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 25, stiffness: 500 } },
+  exit:   { opacity: 0, y: -20, transition: { duration: 0.2 } }
 };
 
+/**
+ * Props for the DeliveryOptions component.
+ *
+ * @property {"delivery" | "pickup"} deliveryOption
+ *    The currently selected option.
+ * @property {(option: "delivery" | "pickup") => void} setDeliveryOption
+ *    Callback invoked when the user changes the option.
+ */
 interface DeliveryOptionsProps {
-  deliveryOption: string;
-  setDeliveryOption: (option: string) => void;
+  deliveryOption: "delivery" | "pickup";
+  setDeliveryOption: (option: "delivery" | "pickup") => void;
 }
 
+/**
+ * DeliveryOptions
+ *
+ * Renders two selectable cards (“Delivery” & “Pickup”) inside
+ * a Card wrapper.  Highlights the selected card and triggers a
+ * toast on change.
+ */
 const DeliveryOptions: React.FC<DeliveryOptionsProps> = ({
   deliveryOption,
   setDeliveryOption,
 }) => {
-  const handleDeliveryChange = (value: string) => {
+  /** Handle radio-group value change and show a toast. */
+  const handleDeliveryChange = (value: "delivery" | "pickup") => {
     setDeliveryOption(value);
     toast(`Changed to ${value === "delivery" ? "delivery" : "pickup"}`);
   };
@@ -42,12 +66,14 @@ const DeliveryOptions: React.FC<DeliveryOptionsProps> = ({
             Delivery Method
           </CardTitle>
         </CardHeader>
+
         <CardContent className="pt-6">
           <RadioGroup
             value={deliveryOption}
             onValueChange={handleDeliveryChange}
             className="grid grid-cols-2 gap-4"
           >
+            {/* Delivery card */}
             <Label className="[&:has([data-state=checked])>div]:border-primary [&:has([data-state=checked])>div]:bg-primary/5 cursor-pointer">
               <RadioGroupItem value="delivery" className="sr-only" />
               <div className="flex flex-col items-center gap-4 p-4 border rounded-lg hover:border-primary/30 hover:bg-primary/5 transition-all duration-200">
@@ -61,6 +87,7 @@ const DeliveryOptions: React.FC<DeliveryOptionsProps> = ({
               </div>
             </Label>
 
+            {/* Pickup card */}
             <Label className="[&:has([data-state=checked])>div]:border-primary [&:has([data-state=checked])>div]:bg-primary/5 cursor-pointer">
               <RadioGroupItem value="pickup" className="sr-only" />
               <div className="flex flex-col items-center gap-4 p-4 border rounded-lg hover:border-primary/30 hover:bg-primary/5 transition-all duration-200">
