@@ -1,8 +1,18 @@
+
+
+/* SECTION: Container */
+/**
+ * Container that positions the account-related components.
+ */
 .container {
   position: relative;
 }
 
-/* Account Button Styling */
+/* SECTION: Account Button */
+/**
+ * .accountButton
+ * A circular, icon-based button for user accounts with hover effects.
+ */
 .accountButton {
   position: relative;
   display: flex;
@@ -17,10 +27,18 @@
   transition: background-color 0.2s;
 }
 
+/**
+ * .accountButton:hover
+ * Light background color on hover for better interactivity.
+ */
 .accountButton:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
+/**
+ * .loggedInIndicator
+ * A small green dot indicating user is online/logged in.
+ */
 .loggedInIndicator {
   position: absolute;
   bottom: 3px;
@@ -32,7 +50,11 @@
   border: 2px solid white;
 }
 
-/* Dropdown Styling */
+/* SECTION: Dropdown Menu */
+/**
+ * .dropdown
+ * Main dropdown container for account options.
+ */
 .dropdown {
   position: absolute;
   top: 45px;
@@ -46,6 +68,10 @@
   animation: fadeIn 0.2s ease-out;
 }
 
+/**
+ * fadeIn
+ * Animation for dropdown appearance.
+ */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -57,7 +83,11 @@
   }
 }
 
-/* User Info Styling */
+/* SECTION: User Info */
+/**
+ * .userInfo
+ * Container for the user avatar, name, and email.
+ */
 .userInfo {
   display: flex;
   align-items: center;
@@ -65,6 +95,10 @@
   border-bottom: 1px solid #f0f0f0;
 }
 
+/**
+ * .avatar
+ * A circle containing the user's initial or icon.
+ */
 .avatar {
   width: 40px;
   height: 40px;
@@ -77,21 +111,37 @@
   margin-right: 12px;
 }
 
+/**
+ * .name
+ * User's display name.
+ */
 .name {
   font-weight: 500;
   margin-bottom: 2px;
 }
 
+/**
+ * .email
+ * Email shown in smaller, muted text.
+ */
 .email {
   font-size: 0.85rem;
   color: #666;
 }
 
-/* Menu Items Styling */
+/* SECTION: Menu Items */
+/**
+ * .menuItems
+ * Wrapper for navigation links or actions.
+ */
 .menuItems {
   padding: 8px 0;
 }
 
+/**
+ * .menuItem
+ * Individual clickable item in dropdown.
+ */
 .menuItem {
   display: flex;
   align-items: center;
@@ -101,28 +151,46 @@
   transition: background-color 0.2s;
 }
 
+/**
+ * .menuItem:hover
+ * Light background color on hover.
+ */
 .menuItem:hover {
   background-color: #f8f8f8;
 }
 
+/**
+ * .menuItem svg
+ * Icon inside the menu item.
+ */
 .menuItem svg {
   margin-right: 12px;
   color: #666;
 }
 
+/**
+ * .description
+ * Additional info under a menu item label.
+ */
 .description {
   font-size: 0.75rem;
   color: #666;
   margin-top: 2px;
 }
 
-/* Footer Styling */
+/* SECTION: Footer and Logout */
+/**
+ * .footer
+ * Footer section at bottom of dropdown.
+ */
 .footer {
   padding: 12px 16px;
-  border-top: 1px solid #f0f0f0;
 }
 
-/* Logout Button Styling */
+/**
+ * .logoutButton
+ * Styled logout button with red coloring.
+ */
 .logoutButton {
   display: flex;
   align-items: center;
@@ -138,19 +206,35 @@
   transition: background-color 0.2s;
 }
 
+/**
+ * .logoutButton:hover
+ * Darker red on hover.
+ */
 .logoutButton:hover {
   background-color: #ffcdd2;
 }
 
+/**
+ * .logoutButton svg
+ * Logout icon.
+ */
 .logoutButton svg {
   margin-right: 8px;
 }
 
-/* Authentication Options Styling */
+/* SECTION: Auth Options */
+/**
+ * .authOptions
+ * Section for login/signup buttons if not logged in.
+ */
 .authOptions {
   padding: 16px;
 }
 
+/**
+ * .authButton
+ * Green-themed buttons for login/sign up.
+ */
 .authButton {
   display: block;
   width: 100%;
@@ -165,13 +249,26 @@
   transition: background-color 0.2s;
 }
 
+/**
+ * .authButton:hover
+ * Slightly darker green background on hover.
+ */
 .authButton:hover {
   background-color: #c8e6c9;
 }
 
+/**
+ * .guestText
+ * Instructional text for guests.
+ */
 .guestText {
   font-size: 0.8rem;
   color: #666;
   text-align: center;
   margin-top: 8px;
 }
+
+ 
+
+
+
