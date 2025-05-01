@@ -16,6 +16,12 @@ import {
 } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 
+/**
+ * @interface AuthContextProps
+ * @description
+ * Defines the structure for the authentication context, including user state,
+ * loading status, and auth-related actions like signIn, signUp, and signOut.
+ */
 interface AuthContextProps {
   user: User | null;
   loading: boolean;
@@ -24,7 +30,11 @@ interface AuthContextProps {
   signOutUser: () => Promise<void>;
 }
 
-// Provide some default values
+/**
+ * @constant AuthContext
+ * @description
+ * React Context to share authentication state and methods across the application.
+ */
 const AuthContext = createContext<AuthContextProps>({
   user: null,
   loading: true,
@@ -33,11 +43,21 @@ const AuthContext = createContext<AuthContextProps>({
   signOutUser: async () => {},
 });
 
+/**
+ * @component AuthProvider
+ * @description
+ * Provider component to wrap the application with authentication logic.
+ *
+ * @param {ReactNode} children - React children to be wrapped.
+ * @returns JSX.Element with authentication context provider.
+ */
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // Monitor Firebase Auth state
+  /**
+   * Monitor authentication state using Firebase's `onAuthStateChanged`.
+   */
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -46,40 +66,49 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => unsubscribe();
   }, []);
 
-  // Sign Up with email & password
+  /**
+   * Sign up a new user using email and password.
+   *
+   * @param {string} email - User's email.
+   * @param {string} password - User's password.
+   */
   const signUp = async (email: string, password: string) => {
     setLoading(true);
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      // user state will update automatically via onAuthStateChanged
     } catch (err) {
       console.error('Error in signUp:', err);
-      throw err; // or handle however you prefer
+      throw err;
     } finally {
       setLoading(false);
     }
   };
 
-  // Sign In with email & password
+  /**
+   * Sign in an existing user using email and password.
+   *
+   * @param {string} email - User's email.
+   * @param {string} password - User's password.
+   */
   const signIn = async (email: string, password: string) => {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // user state will update automatically via onAuthStateChanged
     } catch (err) {
       console.error('Error in signIn:', err);
-      throw err; // or handle however you prefer
+      throw err;
     } finally {
       setLoading(false);
     }
   };
 
-  // Sign Out
+  /**
+   * Sign out the currently logged-in user.
+   */
   const signOutUser = async () => {
     setLoading(true);
     try {
       await signOut(auth);
-      // user state will become null via onAuthStateChanged
     } catch (err) {
       console.error('Error in signOut:', err);
       throw err;
@@ -103,7 +132,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// Hook to access the AuthContext
+/**
+ * @function useAuth
+ * @description
+ * React hook to access the authentication context.
+ *
+ * @returns {AuthContextProps} Authentication context object.
+ */
 export function useAuth() {
   return useContext(AuthContext);
 }
+
+ 
+  
