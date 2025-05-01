@@ -1,16 +1,50 @@
 /* src/styles/globals.css */
+
+/* ==========================================================================
+   Tailwind Base Layers
+   ========================================================================== */
+/**
+ * @section Tailwind Base
+ * @description
+ * Import base, components, and utilities from Tailwind CSS.
+ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles */
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+/**
+ * @section Base Styles
+ * @description
+ * Set base styles for the entire document.
+ */
 @layer base {
   body {
+    /**
+     * @description
+     * Applies a white background to the body using Tailwind utility.
+     */
     @apply bg-white;
   }
 }
 
-/* Custom animations */
+/* ==========================================================================
+   Custom Animations
+   ========================================================================== */
+/**
+ * @section Custom Animations
+ * @description
+ * Reusable animation utilities.
+ */
+
+/**
+ * @name scroll
+ * @description
+ * Scrolls content horizontally in an infinite loop.
+ * Use with the `.animate-scroll` utility class.
+ */
 @keyframes scroll {
   0% {
     transform: translateX(0);
@@ -20,28 +54,68 @@
   }
 }
 
+/**
+ * @name .animate-scroll
+ * @description
+ * Applies the scroll animation.
+ */
 .animate-scroll {
   animation: scroll 25s linear infinite;
 }
 
-/* Custom utilities */
+/* ==========================================================================
+   Custom Utility Classes
+   ========================================================================== */
+/**
+ * @section Custom Utilities
+ * @description
+ * Utility classes that extend Tailwind’s default set.
+ */
 @layer utilities {
+  /**
+   * @name .text-shadow
+   * @description
+   * Adds a soft shadow to text for better visibility.
+   */
   .text-shadow {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
 }
 
-/* Custom styles */
+/* ==========================================================================
+   Custom Component Styles
+   ========================================================================== */
+/**
+ * @section Custom Component Classes
+ * @description
+ * Standalone CSS classes for layout and navigation UI.
+ */
+
+/**
+ * @name .hero-section
+ * @description
+ * Full-screen section with hidden overflow for animations or visuals.
+ */
 .hero-section {
   min-height: 100vh;
   position: relative;
   overflow: hidden;
 }
 
+/**
+ * @name .nav-transparent
+ * @description
+ * Transparent navbar background for top of page.
+ */
 .nav-transparent {
   background: transparent;
 }
 
+/**
+ * @name .nav-scrolled
+ * @description
+ * Solid navbar style with shadow after scroll.
+ */
 .nav-scrolled {
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
