@@ -2,7 +2,16 @@ import { useState, useCallback, useMemo, useEffect } from 'react';
 import { useCart as useGlobalCart } from '@/contexts/CartContext';
 import { toast } from 'sonner';
 
-// Define CartItem type
+/**
+ * Represents an individual item in the cart.
+ * @typedef {Object} CartItem
+ * @property {string} _id - Unique identifier for the item.
+ * @property {string} name - Name of the item.
+ * @property {number} price - Price of a single item.
+ * @property {number} quantity - Quantity of this item in the cart.
+ * @property {string} [image] - Optional image URL.
+ * @property {string[]} [keyIngredients] - Optional list of ingredients.
+ */
 interface CartItem {
   _id: string;
   name: string;
@@ -12,56 +21,47 @@ interface CartItem {
   keyIngredients?: string[];
 }
 
-// Define return type for our hook
+/**
+ * Return structure for the useCart hook.
+ * @typedef {Object} UseCartReturn
+ */
 interface UseCartReturn {
-  // Cart state
   cartItems: CartItem[];
   isLoading: boolean;
   removingItemId: string | null;
-  
-  // Cart calculations
   subtotal: number;
   tax: number;
   deliveryFee: number;
   total: number;
   itemCount: number;
-  
-  // Delivery and payment methods
   deliveryOption: string;
   setDeliveryOption: (option: string) => void;
   paymentMethod: string;
   setPaymentMethod: (method: string) => void;
-  
-  // Promo code functionality
   promoCode: string;
   setPromoCode: (code: string) => void;
   promoDiscount: number;
   handleApplyPromo: () => void;
-  
-  // Cart actions
   handleRemoveItem: (id: string) => void;
   handleClearCart: () => void;
   handleQuantityChange: (id: string, quantity: number) => void;
-  
-  // Order processing
   isProcessing: boolean;
   handleCheckout: () => void;
 }
 
 /**
- * Enhanced cart hook that provides additional cart-specific functionality
- * beyond what's available in the global CartContext
+ * Custom hook to manage shopping cart logic including:
+ * - Cart state and calculations
+ * - Promo code application
+ * - Delivery/payment options
+ * - Order processing and UI interaction
+ *
+ * @param {string} [initialDeliveryOption='delivery'] - Default delivery method
+ * @returns {UseCartReturn}
  */
 export const useCart = (initialDeliveryOption = 'delivery'): UseCartReturn => {
-  // Get base cart functionality from global context
-  const { 
-    cartItems, 
-    removeFromCart, 
-    updateCartItemQuantity, 
-    clearCart 
-  } = useGlobalCart();
-  
-  // Local state for cart page
+  const { cartItems, removeFromCart, updateCartItemQuantity, clearCart } = useGlobalCart();
+
   const [isLoading, setIsLoading] = useState(true);
   const [removingItemId, setRemovingItemId] = useState<string | null>(null);
   const [deliveryOption, setDeliveryOption] = useState(initialDeliveryOption);
@@ -69,37 +69,44 @@ export const useCart = (initialDeliveryOption = 'delivery'): UseCartReturn => {
   const [promoCode, setPromoCode] = useState('');
   const [promoDiscount, setPromoDiscount] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
-  
-  // Simulate loading
+
+  // Simulated loading for smooth transitions
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 800);
     return () => clearTimeout(timer);
   }, []);
-  
-  // Memoized cart calculations
+
+  /** Calculate subtotal */
   const subtotal = useMemo(
     () => cartItems.reduce((total, item) => total + item.price * item.quantity, 0),
     [cartItems]
   );
-  
+
+  /** Calculate tax */
   const tax = useMemo(() => subtotal * 0.08, [subtotal]);
-  
+
+  /** Calculate delivery fee (free if subtotal >= $35 or it's a pickup) */
   const deliveryFee = useMemo(
     () => (deliveryOption === 'delivery' && subtotal < 35 ? 4.99 : 0),
     [deliveryOption, subtotal]
   );
-  
+
+  /** Calculate total (subtotal + tax + delivery - promo discount) */
   const total = useMemo(
     () => subtotal + tax + deliveryFee - promoDiscount,
     [subtotal, tax, deliveryFee, promoDiscount]
   );
-  
+
+  /** Total number of items in the cart */
   const itemCount = useMemo(
     () => cartItems.reduce((sum, item) => sum + item.quantity, 0),
     [cartItems]
   );
-  
-  // Handle removing items with animation
+
+  /**
+   * Remove item from cart with animation.
+   * @param {string} itemId - ID of the item to remove
+   */
   const handleRemoveItem = useCallback((itemId: string) => {
     setRemovingItemId(itemId);
     setTimeout(() => {
@@ -110,22 +117,26 @@ export const useCart = (initialDeliveryOption = 'delivery'): UseCartReturn => {
       });
     }, 300);
   }, [removeFromCart]);
-  
-  // Handle clearing cart with confirmation
+
+  /**
+   * Clear the entire cart after confirmation.
+   */
   const handleClearCart = useCallback(() => {
     if (cartItems.length > 0 && confirm("Are you sure you want to clear your cart?")) {
       clearCart();
-      toast("Cart cleared", { 
-        description: "All items have been removed from your cart" 
-      });
+      toast("Cart cleared", { description: "All items have been removed from your cart" });
     }
   }, [cartItems.length, clearCart]);
-  
-  // Handle quantity change with validation
+
+  /**
+   * Update item quantity in cart, or remove if zero.
+   * @param {string} itemId - ID of item to update
+   * @param {number} quantity - New quantity
+   */
   const handleQuantityChange = useCallback((itemId: string, quantity: number) => {
     if (quantity < 1) {
       handleRemoveItem(itemId);
-    } else if (quantity <= 99) { // Maximum reasonable quantity 
+    } else if (quantity <= 99) {
       updateCartItemQuantity(itemId, quantity);
     } else {
       toast.error("Maximum quantity exceeded", {
@@ -133,8 +144,10 @@ export const useCart = (initialDeliveryOption = 'delivery'): UseCartReturn => {
       });
     }
   }, [handleRemoveItem, updateCartItemQuantity]);
-  
-  // Handle promo code application
+
+  /**
+   * Apply promo code and calculate discount.
+   */
   const handleApplyPromo = useCallback(() => {
     if (!promoCode.trim()) {
       toast("Please enter a promo code", {
@@ -143,10 +156,8 @@ export const useCart = (initialDeliveryOption = 'delivery'): UseCartReturn => {
       return;
     }
 
-    // Reset any existing discount first
     setPromoDiscount(0);
-    
-    // Check for valid promo codes
+
     if (promoCode.toUpperCase() === "WELCOME20") {
       const discount = subtotal * 0.2;
       setPromoDiscount(discount);
@@ -166,61 +177,48 @@ export const useCart = (initialDeliveryOption = 'delivery'): UseCartReturn => {
       });
     }
   }, [promoCode, subtotal]);
-  
-  // Handle checkout process
+
+  /**
+   * Finalize checkout process (with simulated delay).
+   */
   const handleCheckout = useCallback(() => {
-    // Validation
     if (cartItems.length === 0) {
       toast.error("Your cart is empty", {
         description: "Add some items before checking out",
       });
       return;
     }
-    
-    // Process checkout
+
     setIsProcessing(true);
-    
-    // Simulate API call
+
     setTimeout(() => {
       setIsProcessing(false);
-      // Here you would navigate to success page or show dialog
       toast.success("Order placed successfully!", {
         description: "You'll receive a confirmation email shortly",
       });
     }, 2000);
   }, [cartItems.length]);
-  
+
   return {
-    // Cart state
     cartItems,
     isLoading,
     removingItemId,
-    
-    // Cart calculations
     subtotal,
     tax,
     deliveryFee,
     total,
     itemCount,
-    
-    // Delivery and payment methods
     deliveryOption,
     setDeliveryOption,
     paymentMethod,
     setPaymentMethod,
-    
-    // Promo code functionality
     promoCode,
     setPromoCode,
     promoDiscount,
     handleApplyPromo,
-    
-    // Cart actions
     handleRemoveItem,
     handleClearCart,
     handleQuantityChange,
-    
-    // Order processing
     isProcessing,
     handleCheckout,
   };
